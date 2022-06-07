@@ -11,16 +11,17 @@ pipeline {
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "172.31.40.209:8081"
         NEXUS_REPOSITORY = "vprofile-release"
-        NEXUS_REPO_ID    = "vprofile-release"
-        NEXUS_CREDENTIAL_ID = "nexuslogin"
+        NEXUS_REPO_ID    = "vprofile-grp-repo"
+        NEXUS_CREDENTIAL_ID = "nexus_server"
         ARTVERSION = "${env.BUILD_ID}"
+	scannerHome = tool 'mysonarscanner4'
     }
 
     stages{
 
         stage('Fetch Code') {
             steps {
-                git branch: 'paac', url: 'https://github.com/devopshydclub/vprofile-project.git'
+                git branch: 'paac', url: 'https://github.com/realtime-projects-demo/vprofile-project.git'
             }
         }
         stage('BUILD'){
