@@ -9,9 +9,9 @@ pipeline {
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.31.40.209:8081"
+        NEXUS_URL = "172.31.12.139:8081"
         NEXUS_REPOSITORY = "vprofile-release"
-        NEXUS_REPO_ID    = "vprofile-grp-repo"
+        NEXUS_REPO_ID    = "vpro-maven-group"
         NEXUS_CREDENTIAL_ID = "nexus_server"
         ARTVERSION = "${env.BUILD_ID}"
 	scannerHome = tool 'mysonarscanner4'
@@ -21,7 +21,7 @@ pipeline {
 
         stage('Fetch Code') {
             steps {
-                git branch: 'paac', url: 'https://github.com/realtime-projects-demo/vprofile-project.git'
+                git branch: 'paac', url: 'https://github.com/realtime-projects-demo/vprofile'
             }
         }
         stage('BUILD'){
@@ -62,11 +62,11 @@ pipeline {
         stage('CODE ANALYSIS with SONARQUBE') {
 
             environment {
-                scannerHome = tool 'mysonarscanner4'
+                scannerHome = tool 'SonarQube4.7.0.2747'
             }
 
             steps {
-                withSonarQubeEnv('sonar-pro') {
+                withSonarQubeEnv('sonar-vprofile') {
                     sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
                    -Dsonar.projectName=vprofile-repo \
                    -Dsonar.projectVersion=1.0 \
